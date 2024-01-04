@@ -3,22 +3,23 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { userRouter } from './routes/login';
 dotenv.config();
 
 const app = express();
 const URI = process.env.URI || "mongodb+srv://maornetzer9:Maor013254777@maor.quyl8kx.mongodb.net/Netfilx";
-const FRONTEND_PORT = process.env.PORT || 4200;
-const BACKEND_PORT = process.env.PORT || 3001;
+const FRONTEND_PORT = process.env.PORT || 3000;
+const BACKEND_PORT = process.env.PORT || 5050;
 
 const corsOptions = {
-    origin : process.env.PORT,
+    origin : 'http://localhost:3000',
     method: 'GET, HEAD, PUT, PATCH, POST, DELETE',
 };
 
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json());
-
+app.use('/user', userRouter)
 
 mongoose.connect(URI)
 .then(() => {
